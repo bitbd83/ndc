@@ -1,25 +1,25 @@
 ![NDC-NDC](https://github.com/ndexnetwork/ndc/azure-quickstart-templates/blob/master/ndc-on-ubuntu/images/ndc.png)
 
-[![Build Status](https://travis-ci.org/ndcpro/ndc.svg?branch=master)](https://travis-ci.org/ndcpro/ndc) [![Download NDC wallet](https://img.shields.io/badge/downloads-latest%20client-blue.svg)](https://github.com/ndcpro/ndc/releases/latest) [![NDC Network](https://img.shields.io/badge/network%20status-stable-brightgreen.svg)](http://explorer.ndc.co)
-# [NDC] NDC
+[![Build Status](https://travis-ci.org/ndcpro/ndc.svg?branch=master)](https://travis-ci.org/ndcpro/ndc) [![Download NDC wallet](https://img.shields.io/badge/downloads-latest%20client-blue.svg)](https://github.com/ndexnetwork/ndc/releases/latest) [![NDC Network](https://img.shields.io/badge/network%20status-stable-brightgreen.svg)](http://explorer.ndcwallet.pro)
 
-### Join the NDC Bitcoin - Cryptocurrency and Blockchain communications server
+
+### Join the NDC  - Cryptocurrency and Blockchain community : https://t.me/ndexnetwork
 
 
 -------------------
 
 ### Download Supported Platforms
 
-[![NDC-windows](http://i.imgur.com/kJIvcip.png)](https://ndc.org/#jf_download) [![NDC-mac](http://i.imgur.com/eW5Hlpc.png)](https://ndc.org/#jf_download) [![NDC-ubuntu](http://imgur.com/orQ2ta4.png)](https://ndc.org/#jf_download) [![NDC-debian](https://i.imgur.com/pPS1OOx.png)](https://ndc.org/#jf_download)
+[![NDC-windows](http://i.imgur.com/kJIvcip.png)](https://www.ndcwallet.pro/#jf_download) [![NDC-mac](http://i.imgur.com/eW5Hlpc.png)](https://www.ndcwallet.pro/#jf_download) [![NDC-ubuntu](http://imgur.com/orQ2ta4.png)](https://www.ndcwallet.pro/#jf_download) [![NDC-debian](https://i.imgur.com/pPS1OOx.png)](https://www.ndcwallet.pro/#jf_download)
 
-[![NDC-raspberry](http://imgur.com/UJNvyax.png)](https://ndc.org/#jf_download)  [![NDC-pine](http://imgur.com/bUpbcNL.png)](https://ndc.org/#jf_download) [![NDC-android](http://i.imgur.com/Tx4q5Dc.png)](https://ndc.org/#jf_download) [![NDC-fedora](https://i.imgur.com/WCovlZx.png)](https://ndc.org/#jf_download)
+[![NDC-raspberry](http://imgur.com/UJNvyax.png)](https://ndc.org/#jf_download)  [![NDC-pine](http://imgur.com/bUpbcNL.png)](https://www.ndcwallet.pro/#jf_download) [![NDC-android](http://i.imgur.com/Tx4q5Dc.png)](https://www.ndcwallet.pro/#jf_download) [![NDC-fedora](https://i.imgur.com/WCovlZx.png)](https://www.ndcwallet.pro/#jf_download)
 
 #### Download the Instant NDC-Blockchain - Fast Sync for first time users on Desktop-Laptop (Mac, Win, Linux, Raspberry Pi):
 ![NDC-bootstrap] https://github.com/ndexnetwork/ndc
 
 --------------------
 
-**NDC** is digital cash. **NDC** is the official symbol.
+**NDC** is digital p2p cryptocurrency. **NDC** is the official symbol.
 
 **Transactions** have real fast confirmations, making them virtually instant.
 
@@ -47,7 +47,7 @@ Some of the NDC features: **Fast, Efficient, Social, Community based (like Bitco
 
 #### NDC BTC Community Channels: https://discord.io/ndc
 
-#### NDCTalk Forums *new:  http://ndctalk.org
+#### NDCTalk Forums *new:  http://ndctalk.ndexnetwork.com
 
 
 
@@ -71,15 +71,8 @@ The master branch is regularly built and tested, but is not guaranteed
 to be completely stable. Tags are regularly created to indicate new
 stable release versions of NDC.
 
-Feature branches are created when there are major new features being
-worked on by several people.
+```
 
-From time to time a pull request will become outdated. If this occurs, and
-the pull is no longer automatically merge able; a comment on the pull will
-be used to issue a warning of closure. The pull will be closed 15 days
-after the warning if action is not taken by the author. Pull requests closed
-in this manner will have their corresponding issue labelled 'stagnant'.
+                  Copyright © 2020 nDEX Network protected under license MIT
 
-Issues with no commits will be given a similar warning, and closed after
-15 days from their last activity. Issues closed in this manner will be
-labelled 'stale'.
+```
