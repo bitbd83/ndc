@@ -59,7 +59,7 @@ class FileState {
     }
     if (n == 0) {
       *result = Slice();
-      return Status::NDC();
+      return Status::OK();
     }
 
     size_t block = offset / kBlockSize;
@@ -68,7 +68,7 @@ class FileState {
     if (n <= kBlockSize - block_offset) {
       // The requested bytes are all in the first block.
       *result = Slice(blocks_[block] + block_offset, n);
-      return Status::NDC();
+      return Status::OK();
     }
 
     size_t bytes_to_copy = n;
@@ -88,7 +88,7 @@ class FileState {
     }
 
     *result = Slice(scratch, n);
-    return Status::NDC();
+    return Status::OK();
   }
 
   Status Append(const Slice& data) {
@@ -117,7 +117,7 @@ class FileState {
       size_ += avail;
     }
 
-    return Status::NDC();
+    return Status::OK();
   }
 
  private:
@@ -172,7 +172,7 @@ class SequentialFileImpl : public SequentialFile {
       n = available;
     }
     pos_ += n;
-    return Status::NDC();
+    return Status::OK();
   }
 
  private:
@@ -213,9 +213,9 @@ class WritableFileImpl : public WritableFile {
     return file_->Append(data);
   }
 
-  virtual Status Close() { return Status::NDC(); }
-  virtual Status Flush() { return Status::NDC(); }
-  virtual Status Sync() { return Status::NDC(); }
+  virtual Status Close() { return Status::OK(); }
+  virtual Status Flush() { return Status::OK(); }
+  virtual Status Sync() { return Status::OK(); }
 
  private:
   FileState* file_;
@@ -246,7 +246,7 @@ class InMemoryEnv : public EnvWrapper {
     }
 
     *result = new SequentialFileImpl(file_map_[fname]);
-    return Status::NDC();
+    return Status::OK();
   }
 
   virtual Status NewRandomAccessFile(const std::string& fname,
@@ -258,7 +258,7 @@ class InMemoryEnv : public EnvWrapper {
     }
 
     *result = new RandomAccessFileImpl(file_map_[fname]);
-    return Status::NDC();
+    return Status::OK();
   }
 
   virtual Status NewWritableFile(const std::string& fname,
@@ -273,7 +273,7 @@ class InMemoryEnv : public EnvWrapper {
     file_map_[fname] = file;
 
     *result = new WritableFileImpl(file);
-    return Status::NDC();
+    return Status::OK();
   }
 
   virtual bool FileExists(const std::string& fname) {
@@ -295,7 +295,7 @@ class InMemoryEnv : public EnvWrapper {
       }
     }
 
-    return Status::NDC();
+    return Status::OK();
   }
 
   void DeleteFileInternal(const std::string& fname) {
@@ -314,15 +314,15 @@ class InMemoryEnv : public EnvWrapper {
     }
 
     DeleteFileInternal(fname);
-    return Status::NDC();
+    return Status::OK();
   }
 
   virtual Status CreateDir(const std::string& dirname) {
-    return Status::NDC();
+    return Status::OK();
   }
 
   virtual Status DeleteDir(const std::string& dirname) {
-    return Status::NDC();
+    return Status::OK();
   }
 
   virtual Status GetFileSize(const std::string& fname, uint64_t* file_size) {
@@ -332,7 +332,7 @@ class InMemoryEnv : public EnvWrapper {
     }
 
     *file_size = file_map_[fname]->Size();
-    return Status::NDC();
+    return Status::OK();
   }
 
   virtual Status RenameFile(const std::string& src,
@@ -345,27 +345,27 @@ class InMemoryEnv : public EnvWrapper {
     DeleteFileInternal(target);
     file_map_[target] = file_map_[src];
     file_map_.erase(src);
-    return Status::NDC();
+    return Status::OK();
   }
 
   virtual Status LockFile(const std::string& fname, FileLock** lock) {
     *lock = new FileLock;
-    return Status::NDC();
+    return Status::OK();
   }
 
   virtual Status UnlockFile(FileLock* lock) {
     delete lock;
-    return Status::NDC();
+    return Status::OK();
   }
 
   virtual Status GetTestDirectory(std::string* path) {
     *path = "/test";
-    return Status::NDC();
+    return Status::OK();
   }
 
   virtual Status NewLogger(const std::string& fname, Logger** result) {
     *result = new NoOpLogger;
-    return Status::NDC();
+    return Status::OK();
   }
 
  private:

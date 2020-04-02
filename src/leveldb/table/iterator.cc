@@ -57,7 +57,7 @@ class EmptyIterator : public Iterator {
 }  // namespace
 
 Iterator* NewEmptyIterator() {
-  return new EmptyIterator(Status::NDC());
+  return new EmptyIterator(Status::OK());
 }
 
 Iterator* NewErrorIterator(const Status& status) {

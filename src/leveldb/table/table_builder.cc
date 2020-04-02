@@ -86,7 +86,7 @@ Status TableBuilder::ChangeOptions(const Options& options) {
   rep_->options = options;
   rep_->index_block_options = options;
   rep_->index_block_options.block_restart_interval = 1;
-  return Status::NDC();
+  return Status::OK();
 }
 
 void TableBuilder::Add(const Slice& key, const Slice& value) {

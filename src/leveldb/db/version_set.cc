@@ -191,7 +191,7 @@ class Version::LevelFileNumIterator : public Iterator {
     EncodeFixed64(value_buf_+8, (*flist_)[index_]->file_size);
     return Slice(value_buf_, sizeof(value_buf_));
   }
-  virtual Status status() const { return Status::NDC(); }
+  virtual Status status() const { return Status::OK(); }
  private:
   const InternalKeyComparator icmp_;
   const std::vector<FileMetaData*>* const flist_;

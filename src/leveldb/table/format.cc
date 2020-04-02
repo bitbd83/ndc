@@ -23,7 +23,7 @@ void BlockHandle::EncodeTo(std::string* dst) const {
 Status BlockHandle::DecodeFrom(Slice* input) {
   if (GetVarint64(input, &offset_) &&
       GetVarint64(input, &size_)) {
-    return Status::NDC();
+    return Status::OK();
   } else {
     return Status::Corruption("bad block handle");
   }
@@ -139,7 +139,7 @@ Status ReadBlock(RandomAccessFile* file,
       return Status::Corruption("bad block type");
   }
 
-  return Status::NDC();
+  return Status::OK();
 }
 
 }  // namespace leveldb

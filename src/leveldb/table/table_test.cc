@@ -93,13 +93,13 @@ class StringSink: public WritableFile {
 
   const std::string& contents() const { return contents_; }
 
-  virtual Status Close() { return Status::NDC(); }
-  virtual Status Flush() { return Status::NDC(); }
-  virtual Status Sync() { return Status::NDC(); }
+  virtual Status Close() { return Status::OK(); }
+  virtual Status Flush() { return Status::OK(); }
+  virtual Status Sync() { return Status::OK(); }
 
   virtual Status Append(const Slice& data) {
     contents_.append(data.data(), data.size());
-    return Status::NDC();
+    return Status::OK();
   }
 
  private:
@@ -127,7 +127,7 @@ class StringSource: public RandomAccessFile {
     }
     memcpy(scratch, &contents_[offset], n);
     *result = Slice(scratch, n);
-    return Status::NDC();
+    return Status::OK();
   }
 
  private:
@@ -204,7 +204,7 @@ class BlockConstructor: public Constructor {
     contents.cachable = false;
     contents.heap_allocated = false;
     block_ = new Block(contents);
-    return Status::NDC();
+    return Status::OK();
   }
   virtual Iterator* NewIterator() const {
     return block_->NewIterator(comparator_);
@@ -335,7 +335,7 @@ class MemTableConstructor: public Constructor {
       memtable_->Add(seq, kTypeValue, it->first, it->second);
       seq++;
     }
-    return Status::NDC();
+    return Status::OK();
   }
   virtual Iterator* NewIterator() const {
     return new KeyConvertingIterator(memtable_->NewIterator());
@@ -368,7 +368,7 @@ class DBConstructor: public Constructor {
       batch.Put(it->first, it->second);
       ASSERT_TRUE(db_->Write(WriteOptions(), &batch).ok());
     }
-    return Status::NDC();
+    return Status::OK();
   }
   virtual Iterator* NewIterator() const {
     return db_->NewIterator(ReadOptions());

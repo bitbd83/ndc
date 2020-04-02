@@ -64,7 +64,7 @@ class MemTableIterator: public Iterator {
     return GetLengthPrefixedSlice(key_slice.data() + key_slice.size());
   }
 
-  virtual Status status() const { return Status::NDC(); }
+  virtual Status status() const { return Status::OK(); }
 
  private:
   MemTable::Table::Iterator iter_;

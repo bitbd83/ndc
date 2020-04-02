@@ -65,7 +65,7 @@ class PosixSequentialFile: public SequentialFile {
     if (fseek(file_, n, SEEK_CUR)) {
       return IOError(filename_, errno);
     }
-    return Status::NDC();
+    return Status::OK();
   }
 };
 
@@ -197,7 +197,7 @@ class PosixWritableFile : public WritableFile {
     if (r != data.size()) {
       return IOError(filename_, errno);
     }
-    return Status::NDC();
+    return Status::OK();
   }
 
   virtual Status Close() {
@@ -213,7 +213,7 @@ class PosixWritableFile : public WritableFile {
     if (fflush_unlocked(file_) != 0) {
       return IOError(filename_, errno);
     }
-    return Status::NDC();
+    return Status::OK();
   }
 
   Status SyncDirIfManifest() {
@@ -308,7 +308,7 @@ class PosixEnv : public Env {
       return IOError(fname, errno);
     } else {
       *result = new PosixSequentialFile(fname, f);
-      return Status::NDC();
+      return Status::OK();
     }
   }
 
@@ -369,7 +369,7 @@ class PosixEnv : public Env {
       result->push_back(entry->d_name);
     }
     closedir(d);
-    return Status::NDC();
+    return Status::OK();
   }
 
   virtual Status DeleteFile(const std::string& fname) {
@@ -465,7 +465,7 @@ class PosixEnv : public Env {
     }
     // Directory may already exist
     CreateDir(*result);
-    return Status::NDC();
+    return Status::OK();
   }
 
   static uint64_t gettid() {
@@ -482,7 +482,7 @@ class PosixEnv : public Env {
       return IOError(fname, errno);
     } else {
       *result = new PosixLogger(f, &PosixEnv::gettid);
-      return Status::NDC();
+      return Status::OK();
     }
   }
 

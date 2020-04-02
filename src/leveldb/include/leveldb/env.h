@@ -41,9 +41,9 @@ class Env {
   static Env* Default();
 
   // Create a brand new sequentially-readable file with the specified name.
-  // On success, stores a pointer to the new file in *result and returns NDC.
-  // On failure stores NULL in *result and returns non-NDC.  If the file does
-  // not exist, returns a non-NDC status.
+  // On success, stores a pointer to the new file in *result and returns OK.
+  // On failure stores NULL in *result and returns non-OK.  If the file does
+  // not exist, returns a non-OK status.
   //
   // The returned file will only be accessed by one thread at a time.
   virtual Status NewSequentialFile(const std::string& fname,
@@ -51,8 +51,8 @@ class Env {
 
   // Create a brand new random access read-only file with the
   // specified name.  On success, stores a pointer to the new file in
-  // *result and returns NDC.  On failure stores NULL in *result and
-  // returns non-NDC.  If the file does not exist, returns a non-NDC
+  // *result and returns OK.  On failure stores NULL in *result and
+  // returns non-OK.  If the file does not exist, returns a non-OK
   // status.
   //
   // The returned file may be concurrently accessed by multiple threads.
@@ -62,8 +62,8 @@ class Env {
   // Create an object that writes to a new file with the specified
   // name.  Deletes any existing file with the same name and creates a
   // new file.  On success, stores a pointer to the new file in
-  // *result and returns NDC.  On failure stores NULL in *result and
-  // returns non-NDC.
+  // *result and returns OK.  On failure stores NULL in *result and
+  // returns non-OK.
   //
   // The returned file will only be accessed by one thread at a time.
   virtual Status NewWritableFile(const std::string& fname,
@@ -96,10 +96,10 @@ class Env {
 
   // Lock the specified file.  Used to prevent concurrent access to
   // the same db by multiple processes.  On failure, stores NULL in
-  // *lock and returns non-NDC.
+  // *lock and returns non-OK.
   //
   // On success, stores a pointer to the object that represents the
-  // acquired lock in *lock and returns NDC.  The caller should call
+  // acquired lock in *lock and returns OK.  The caller should call
   // UnlockFile(*lock) to release the lock.  If the process exits,
   // the lock will be automatically released.
   //
@@ -162,7 +162,7 @@ class SequentialFile {
   // read (including if fewer than "n" bytes were successfully read).
   // May set "*result" to point at data in "scratch[0..n-1]", so
   // "scratch[0..n-1]" must be live when "*result" is used.
-  // If an error was encountered, returns a non-NDC status.
+  // If an error was encountered, returns a non-OK status.
   //
   // REQUIRES: External synchronization
   virtual Status Read(size_t n, Slice* result, char* scratch) = 0;
@@ -171,7 +171,7 @@ class SequentialFile {
   // slower that reading the same data, but may be faster.
   //
   // If end of file is reached, skipping will stop at the end of the
-  // file, and Skip will return NDC.
+  // file, and Skip will return OK.
   //
   // REQUIRES: External synchronization
   virtual Status Skip(uint64_t n) = 0;
@@ -193,7 +193,7 @@ class RandomAccessFile {
   // to the data that was read (including if fewer than "n" bytes were
   // successfully read).  May set "*result" to point at data in
   // "scratch[0..n-1]", so "scratch[0..n-1]" must be live when
-  // "*result" is used.  If an error was encountered, returns a non-NDC
+  // "*result" is used.  If an error was encountered, returns a non-OK
   // status.
   //
   // Safe for concurrent use by multiple threads.

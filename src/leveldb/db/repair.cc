@@ -214,7 +214,7 @@ class Repairer {
         Log(options_.info_log, "Log #%llu: ignoring %s",
             (unsigned long long) log,
             status.ToString().c_str());
-        status = Status::NDC();  // Keep going with rest of file
+        status = Status::OK();  // Keep going with rest of file
       }
     }
     delete lfile;
@@ -265,7 +265,7 @@ class Repairer {
       fname = SSTTableFileName(dbname_, number);
       Status s2 = env_->GetFileSize(fname, &t.meta.file_size);
       if (s2.ok()) {
-        status = Status::NDC();
+        status = Status::OK();
       }
     }
     if (!status.ok()) {

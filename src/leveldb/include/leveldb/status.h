@@ -29,7 +29,7 @@ class Status {
   void operator=(const Status& s);
 
   // Return a success status.
-  static Status NDC() { return Status(); }
+  static Status OK() { return Status(); }
 
   // Return error status of an appropriate type.
   static Status NotFound(const Slice& msg, const Slice& msg2 = Slice()) {
@@ -61,11 +61,11 @@ class Status {
   bool IsIOError() const { return code() == kIOError; }
 
   // Return a string representation of this status suitable for printing.
-  // Returns the string "NDC" for success.
+  // Returns the string "OK" for success.
   std::string ToString() const;
 
  private:
-  // NDC status has a NULL state_.  Otherwise, state_ is a new[] array
+  // OK status has a NULL state_.  Otherwise, state_ is a new[] array
   // of the following form:
   //    state_[0..3] == length of message
   //    state_[4]    == code

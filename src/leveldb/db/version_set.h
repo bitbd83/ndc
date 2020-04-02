@@ -64,7 +64,7 @@ class Version {
   void AddIterators(const ReadOptions&, std::vector<Iterator*>* iters);
 
   // Lookup the value for key.  If found, store it in *val and
-  // return NDC.  Else return a non-NDC status.  Fills *stats.
+  // return OK.  Else return a non-OK status.  Fills *stats.
   // REQUIRES: lock is not held
   struct GetStats {
     FileMetaData* seek_file;

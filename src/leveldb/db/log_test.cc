@@ -42,12 +42,12 @@ class LogTest {
    public:
     std::string contents_;
 
-    virtual Status Close() { return Status::NDC(); }
-    virtual Status Flush() { return Status::NDC(); }
-    virtual Status Sync() { return Status::NDC(); }
+    virtual Status Close() { return Status::OK(); }
+    virtual Status Flush() { return Status::OK(); }
+    virtual Status Sync() { return Status::OK(); }
     virtual Status Append(const Slice& slice) {
       contents_.append(slice.data(), slice.size());
-      return Status::NDC();
+      return Status::OK();
     }
   };
 
@@ -73,7 +73,7 @@ class LogTest {
       }
       *result = Slice(contents_.data(), n);
       contents_.remove_prefix(n);
-      return Status::NDC();
+      return Status::OK();
     }
 
     virtual Status Skip(uint64_t n) {
@@ -84,7 +84,7 @@ class LogTest {
 
       contents_.remove_prefix(n);
 
-      return Status::NDC();
+      return Status::OK();
     }
   };
 
@@ -172,12 +172,12 @@ class LogTest {
     return report_.message_;
   }
 
-  // Returns NDC iff recorded error message contains "msg"
+  // Returns OK iff recorded error message contains "msg"
   std::string MatchError(const std::string& msg) const {
     if (report_.message_.find(msg) == std::string::npos) {
       return report_.message_;
     } else {
-      return "NDC";
+      return "OK";
     }
   }
 
@@ -338,7 +338,7 @@ TEST(LogTest, ReadError) {
   ForceError();
   ASSERT_EQ("EOF", Read());
   ASSERT_EQ(kBlockSize, DroppedBytes());
-  ASSERT_EQ("NDC", MatchError("read error"));
+  ASSERT_EQ("OK", MatchError("read error"));
 }
 
 TEST(LogTest, BadRecordType) {
@@ -348,7 +348,7 @@ TEST(LogTest, BadRecordType) {
   FixChecksum(0, 3);
   ASSERT_EQ("EOF", Read());
   ASSERT_EQ(3, DroppedBytes());
-  ASSERT_EQ("NDC", MatchError("unknown record type"));
+  ASSERT_EQ("OK", MatchError("unknown record type"));
 }
 
 TEST(LogTest, TruncatedTrailingRecordIsIgnored) {
@@ -368,7 +368,7 @@ TEST(LogTest, BadLength) {
   IncrementByte(4, 1);
   ASSERT_EQ("foo", Read());
   ASSERT_EQ(kBlockSize, DroppedBytes());
-  ASSERT_EQ("NDC", MatchError("bad record length"));
+  ASSERT_EQ("OK", MatchError("bad record length"));
 }
 
 TEST(LogTest, BadLengthAtEndIsIgnored) {
@@ -384,7 +384,7 @@ TEST(LogTest, ChecksumMismatch) {
   IncrementByte(0, 10);
   ASSERT_EQ("EOF", Read());
   ASSERT_EQ(10, DroppedBytes());
-  ASSERT_EQ("NDC", MatchError("checksum mismatch"));
+  ASSERT_EQ("OK", MatchError("checksum mismatch"));
 }
 
 TEST(LogTest, UnexpectedMiddleType) {
@@ -393,7 +393,7 @@ TEST(LogTest, UnexpectedMiddleType) {
   FixChecksum(0, 3);
   ASSERT_EQ("EOF", Read());
   ASSERT_EQ(3, DroppedBytes());
-  ASSERT_EQ("NDC", MatchError("missing start"));
+  ASSERT_EQ("OK", MatchError("missing start"));
 }
 
 TEST(LogTest, UnexpectedLastType) {
@@ -402,7 +402,7 @@ TEST(LogTest, UnexpectedLastType) {
   FixChecksum(0, 3);
   ASSERT_EQ("EOF", Read());
   ASSERT_EQ(3, DroppedBytes());
-  ASSERT_EQ("NDC", MatchError("missing start"));
+  ASSERT_EQ("OK", MatchError("missing start"));
 }
 
 TEST(LogTest, UnexpectedFullType) {
@@ -413,7 +413,7 @@ TEST(LogTest, UnexpectedFullType) {
   ASSERT_EQ("bar", Read());
   ASSERT_EQ("EOF", Read());
   ASSERT_EQ(3, DroppedBytes());
-  ASSERT_EQ("NDC", MatchError("partial record without end"));
+  ASSERT_EQ("OK", MatchError("partial record without end"));
 }
 
 TEST(LogTest, UnexpectedFirstType) {
@@ -424,7 +424,7 @@ TEST(LogTest, UnexpectedFirstType) {
   ASSERT_EQ(BigString("bar", 100000), Read());
   ASSERT_EQ("EOF", Read());
   ASSERT_EQ(3, DroppedBytes());
-  ASSERT_EQ("NDC", MatchError("partial record without end"));
+  ASSERT_EQ("OK", MatchError("partial record without end"));
 }
 
 TEST(LogTest, MissingLastIsIgnored) {

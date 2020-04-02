@@ -35,13 +35,13 @@ Status::Status(Code code, const Slice& msg, const Slice& msg2) {
 
 std::string Status::ToString() const {
   if (state_ == NULL) {
-    return "NDC";
+    return "OK";
   } else {
     char tmp[30];
     const char* type;
     switch (code()) {
       case kOk:
-        type = "NDC";
+        type = "OK";
         break;
       case kNotFound:
         type = "NotFound: ";

@@ -609,7 +609,7 @@ Status Win32MapFile::Sync()
 
 Status Win32MapFile::Flush()
 {
-    return Status::NDC();
+    return Status::OK();
 }
 
 Win32MapFile::~Win32MapFile()

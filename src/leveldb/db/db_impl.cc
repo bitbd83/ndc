@@ -211,7 +211,7 @@ void DBImpl::MaybeIgnoreError(Status* s) const {
     // No change needed
   } else {
     Log(options_.info_log, "Ignoring error %s", s->ToString().c_str());
-    *s = Status::NDC();
+    *s = Status::OK();
   }
 }
 
@@ -1485,7 +1485,7 @@ Status DestroyDB(const std::string& dbname, const Options& options) {
   // Ignore error in case directory does not exist
   env->GetChildren(dbname, &filenames);
   if (filenames.empty()) {
-    return Status::NDC();
+    return Status::OK();
   }
 
   FileLock* lock;

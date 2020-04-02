@@ -75,7 +75,7 @@ Status WriteBatch::Iterate(Handler* handler) const {
   if (found != WriteBatchInternal::Count(this)) {
     return Status::Corruption("WriteBatch has wrong count");
   } else {
-    return Status::NDC();
+    return Status::OK();
   }
 }
 

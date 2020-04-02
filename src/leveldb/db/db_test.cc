@@ -103,7 +103,7 @@ class SpecialEnv : public EnvWrapper {
       Status Append(const Slice& data) {
         if (env_->no_space_.Acquire_Load() != NULL) {
           // Drop writes on the floor
-          return Status::NDC();
+          return Status::OK();
         } else {
           return base_->Append(data);
         }
@@ -1489,7 +1489,7 @@ TEST(DBTest, DBOpen_Options) {
   ASSERT_TRUE(strstr(s.ToString().c_str(), "does not exist") != NULL);
   ASSERT_TRUE(db == NULL);
 
-  // Does not exist, and create_if_missing == true: NDC
+  // Does not exist, and create_if_missing == true: OK
   opts.create_if_missing = true;
   s = DB::Open(opts, dbname, &db);
   ASSERT_OK(s);
@@ -1505,7 +1505,7 @@ TEST(DBTest, DBOpen_Options) {
   ASSERT_TRUE(strstr(s.ToString().c_str(), "exists") != NULL);
   ASSERT_TRUE(db == NULL);
 
-  // Does exist, and error_if_exists == false: NDC
+  // Does exist, and error_if_exists == false: OK
   opts.create_if_missing = true;
   opts.error_if_exists = false;
   s = DB::Open(opts, dbname, &db);
@@ -1920,7 +1920,7 @@ class ModelDB: public DB {
     virtual void Prev() { --iter_; }
     virtual Slice key() const { return iter_->first; }
     virtual Slice value() const { return iter_->second; }
-    virtual Status status() const { return Status::NDC(); }
+    virtual Status status() const { return Status::OK(); }
    private:
     const KVMap* const map_;
     const bool owned_;  // Do we own map_
